@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TopazParametrizer.Observer;
 
 namespace TopazParametrizer.Logic
 {
-    internal class Facade
+    internal class Facade : Subject
     {
         private static Facade instance;
         private FileSystem fileSystem = new FileSystem();
+
+        public enum Events
+        {
+            updateMapping
+        };
+
 
         public static Facade getInstance()
         {
@@ -31,9 +38,25 @@ namespace TopazParametrizer.Logic
             return fileSystem.getFiles();
         }
 
-        internal bool addField(Field field)
+        internal void addField(Field field)
         {
-            return fileSystem.addField(field);
+            fileSystem.addField(field);
+           
+        }
+
+        internal Mapping? getActualMapping()
+        {
+            return fileSystem.getSelectedMapping();
+        }
+
+        internal void startApp()
+        {
+            fileSystem.startApp();
+        }
+
+        internal void setAppPath(string path)
+        {
+            fileSystem.setAppPath(path);
         }
     }
 }

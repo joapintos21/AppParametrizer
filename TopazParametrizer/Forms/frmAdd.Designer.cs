@@ -1,6 +1,6 @@
 ﻿namespace TopazParametrizer.Forms
 {
-    partial class frmAdd
+    partial class FrmAdd
     {
         /// <summary>
         /// Required designer variable.
@@ -40,11 +40,17 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblArchivo = new System.Windows.Forms.Label();
             this.txtFieldName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridAttributes)).BeginInit();
             this.SuspendLayout();
             // 
             // gridAttributes
             // 
+            this.gridAttributes.AllowUserToAddRows = false;
+            this.gridAttributes.AllowUserToDeleteRows = false;
+            this.gridAttributes.AllowUserToResizeRows = false;
+            this.gridAttributes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridAttributes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.gridAttributes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridAttributes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -52,11 +58,13 @@
             this.clmValorActual,
             this.clmSeleccionar,
             this.clmFile});
-            this.gridAttributes.Location = new System.Drawing.Point(12, 80);
+            this.gridAttributes.Location = new System.Drawing.Point(12, 134);
+            this.gridAttributes.MultiSelect = false;
             this.gridAttributes.Name = "gridAttributes";
+            this.gridAttributes.RowHeadersVisible = false;
             this.gridAttributes.RowHeadersWidth = 51;
             this.gridAttributes.RowTemplate.Height = 29;
-            this.gridAttributes.Size = new System.Drawing.Size(1021, 325);
+            this.gridAttributes.Size = new System.Drawing.Size(1021, 324);
             this.gridAttributes.TabIndex = 0;
             // 
             // clmAtributo
@@ -94,7 +102,7 @@
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Location = new System.Drawing.Point(104, 47);
+            this.txtFilePath.Location = new System.Drawing.Point(104, 12);
             this.txtFilePath.Name = "txtFilePath";
             this.txtFilePath.ReadOnly = true;
             this.txtFilePath.Size = new System.Drawing.Size(762, 27);
@@ -102,7 +110,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(872, 45);
+            this.btnSeleccionar.Location = new System.Drawing.Point(870, 11);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(161, 29);
             this.btnSeleccionar.TabIndex = 2;
@@ -112,7 +120,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(12, 411);
+            this.btnGuardar.Location = new System.Drawing.Point(12, 464);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(188, 29);
             this.btnGuardar.TabIndex = 3;
@@ -122,7 +130,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(206, 411);
+            this.button1.Location = new System.Drawing.Point(206, 464);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(188, 29);
             this.button1.TabIndex = 4;
@@ -149,16 +157,35 @@
             // 
             // txtFieldName
             // 
-            this.txtFieldName.Location = new System.Drawing.Point(104, 12);
+            this.txtFieldName.Location = new System.Drawing.Point(104, 46);
             this.txtFieldName.Name = "txtFieldName";
             this.txtFieldName.Size = new System.Drawing.Size(762, 27);
             this.txtFieldName.TabIndex = 7;
             // 
-            // frmAdd
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 20);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Tipo:";
+            // 
+            // cboType
+            // 
+            this.cboType.FormattingEnabled = true;
+            this.cboType.Location = new System.Drawing.Point(104, 80);
+            this.cboType.Name = "cboType";
+            this.cboType.Size = new System.Drawing.Size(762, 28);
+            this.cboType.TabIndex = 9;
+            // 
+            // FrmAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 452);
+            this.ClientSize = new System.Drawing.Size(1043, 505);
+            this.Controls.Add(this.cboType);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFieldName);
             this.Controls.Add(this.lblArchivo);
             this.Controls.Add(this.lblName);
@@ -167,8 +194,8 @@
             this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.gridAttributes);
-            this.Name = "frmAdd";
-            this.Text = "Agregar atributo";
+            this.Name = "FrmAdd";
+            this.Text = "Agregar campo";
             ((System.ComponentModel.ISupportInitialize)(this.gridAttributes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -189,5 +216,7 @@
         private DataGridViewTextBoxColumn clmValorActual;
         private DataGridViewCheckBoxColumn clmSeleccionar;
         private DataGridViewTextBoxColumn clmFile;
+        private Label label1;
+        private ComboBox cboType;
     }
 }

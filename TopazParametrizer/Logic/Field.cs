@@ -12,10 +12,17 @@ namespace TopazParametrizer.Logic
 
         private List<Attribute> attributes = new List<Attribute>();
 
-        public Field(string name, List<Attribute> attributes)
+        private dynamic value;
+
+        public Field(string name, List<Attribute> attributes, dynamic value)
         {
             this.name = name;
             this.attributes = attributes;
+            this.value = value;
+        }
+
+        public Field()
+        {
         }
 
         public string getName()
@@ -36,6 +43,16 @@ namespace TopazParametrizer.Logic
         public void addAttributes(Attribute a)
         {
             attributes.Add(a);
+        }
+
+        public void setValue(dynamic value)
+        {
+            this.value = value;
+        }
+
+        public dynamic getValue()
+        {
+            return value;
         }
     }
 }

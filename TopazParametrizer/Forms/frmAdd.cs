@@ -8,32 +8,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TopazParametrizer.Controller;
+using TopazParametrizer.Controller.Interface;
 using TopazParametrizer.Forms.Themes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TopazParametrizer.Forms.Utils;
+using TopazParametrizer.Logic;
 using Attribute = TopazParametrizer.Logic.Attribute;
+using File = TopazParametrizer.Logic.File;
 
 namespace TopazParametrizer.Forms
 {
-    public partial class frmAdd : Form
+    public partial class FrmAdd : Form, AddView
     {
-        addController addController;
-        public frmAdd()
-        {
+        AddController addController;
+        List<Attribute> openAttributes = new List<Attribute>();
+        public FrmAdd(HomeView homeView) { 
             InitializeComponent();
-            this.addController = new addController(this);
+            this.addController = new AddController(this, homeView);
             //AppTheme
             DarkMode.applyTheme(this);
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            addController.readFile(getFilePath());
+            loadFile();
         }
 
-        //Crear ENUM para tipos de atributo
-        public void agregarValorAlGird(string nombreAtributo, string valorActual, string tipo)
+        void loadFile()
         {
-            gridAttributes.Rows.Insert(0,nombreAtributo,valorActual, true, null);
+            File file = addController.readFile(FileUtils.getFilePath());
+            foreach (Logic.Attribute a in file.getAttributes())
+            {
+                addAttributeRow(a.getName(), a.getStringValue());
+                openAttributes.Add(a);
+            }
+                
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -43,33 +51,31 @@ namespace TopazParametrizer.Forms
 
         private void saveField()
         {
-            string verdadero = "";
             List<Attribute> attrList = new List<Attribute>();
             Attribute aux;
+            int position = 0;
             foreach (DataGridViewRow dgvr in gridAttributes.Rows)
             {
-                if (dgvr.Cells[2].Value == "")
+                
+                if (dgvr.Cells[2].Value != null)
                 {
-                    aux = new Attribute(dgvr.Cells[0].Value.ToString(), dgvr.Cells[1].Value.ToString());
-                    attrList.Add(aux);
+                    if ((bool)dgvr.Cells[2].Value == true)
+                    {
+                        aux = openAttributes[position];
+                        //aux = new Attribute(dgvr.Cells[0].Value.ToString(), dgvr.Cells[1].Value.ToString());
+                        attrList.Add(aux);
+                    }
                 }
+                position++;
             }
-            addController.saveField(txtFieldName.Text, attrList);
+            
+            addController.saveField(txtFieldName.Text, attrList,"ValorPrueba");
+            Close();
         }
 
-        //Metodo para abrir archivos
-        private string getFilePath()
+        private void addAttributeRow(string name, string stringValue)
         {
-            string result = "";
-            using (var fd = new OpenFileDialog())
-            {
-                if (fd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fd.FileName))
-                {
-                    result = fd.FileName;
-                    txtFilePath.Text = result;
-                }
-            }
-            return result;
+            gridAttributes.Rows.Insert(0, name, stringValue, true);
         }
     }
 }

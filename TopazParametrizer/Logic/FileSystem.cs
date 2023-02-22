@@ -12,10 +12,27 @@ namespace TopazParametrizer.Logic
 
         List<File> files = new List<File>();
         List<Mapping> mappings = new List<Mapping>();
-        Mapping selectedMapping;
+        Mapping selectedMapping = new Mapping();
 
         public FileSystem()
         {
+            mappings.Add(selectedMapping);
+        }
+
+        public Mapping getSelectedMapping()
+        {
+            if(selectedMapping == null)
+            {
+                selectedMapping = new Mapping();
+                mappings.Add(selectedMapping);
+            }
+            return this.selectedMapping;
+        }
+
+        public void setMapping(Mapping mapping)
+        {
+            this.selectedMapping = mapping;
+
         }
 
         public File readFile(string path)
@@ -32,7 +49,7 @@ namespace TopazParametrizer.Logic
             return files;
         }
 
-        internal bool addField(Field field)
+        internal void addField(Field field)
         {
             if (selectedMapping == null)
             {
@@ -40,7 +57,17 @@ namespace TopazParametrizer.Logic
                 mappings.Add(selectedMapping);
             }
             selectedMapping.addField(field);
-            return true;
+            Facade.getInstance().Notify(Facade.Events.updateMapping);
+        }
+
+        internal void startApp()
+        {
+            getSelectedMapping().runApp();
+        }
+
+        internal void setAppPath(string path)
+        {
+            getSelectedMapping().setAppDir(path);
         }
     }
 }
